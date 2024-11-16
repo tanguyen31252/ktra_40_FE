@@ -1,100 +1,127 @@
+<!-- <template>
+  <v-container>
+    <v-text-field
+      v-model="search"
+      label="Tìm kiếm"
+      clearable
+      append-icon="mdi-magnify"
+    />
+    
+    <v-data-table 
+      id="table"
+      :items-per-page="itemsPerPage"
+      :headers="headers"
+      :items="filteredItems"
+      item-value="id_ke"
+      hover
+      :header-props="{
+        'style': 'background-color: #4169E1; color: #ffffff;'
+      }"
+    />
+  </v-container>
+</template> -->
+
+
 <template>
-  <v-data-table
-  filter-mode="some"
-    height="windowHeight"
-    fixed-header
-    hover
-    items-per-page=5
-    :headers="headers"
-    :items="data"
-    item-value="name"
-    color="red"
-    :footer-props="{ 'items-per-page-options': [5, 10, 20, -1] }"
-    expand-on-click
-  >
-  </v-data-table>
+    <v-card >
+      <v-data-table
+        :headers="headers"
+        :items="filteredItems"
+        dense
+        fixed-header
+
+        class="elevation-1"
+        :header-props="{
+          style: 'background-color: #4169E1; color: #ffffff;',
+        }"
+        
+      >
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>Bảng</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Tìm kiếm"
+              single-line
+              hide-details
+            ></v-text-field>
+          </v-toolbar>
+        </template>
+      </v-data-table>
+    </v-card>
 </template>
 
 <script lang="ts">
-import { VDataTable } from 'vuetify/components';
+import { ref, computed, onMounted } from 'vue'
 
 export default {
-  components: {
-    VDataTable
-  },
   setup() {
+    const search = ref('')
+    const itemsPerPage = ref(5)
+    const items = ref([])
+    // Khi component được mounted, tải dữ liệu từ localStorage
+    onMounted(() => {
+      const storedData = localStorage.getItem('keData')
+      if (storedData) {
+        items.value = JSON.parse(storedData)
+      } else {
+        console.log('Không có dữ liệu trong localStorage')
+      }
+    })
+
+    // Dữ liệu JSON mới mà bạn đã cung cấp
+    const data = [
+      { id_ke: 1, sl_loai: 5, is_full: false },
+      { id_ke: 2, sl_loai: 4, is_full: false },
+      { id_ke: 3, sl_loai: 0, is_full: false },
+      { id_ke: 4, sl_loai: 0, is_full: false },
+    ]
+
+    // Computed property để lọc các item theo từ khóa tìm kiếm
+    const filteredItems = computed(() => {
+      return data.filter((item) => {
+        return item.id_ke.toString().includes(search.value)
+      })
+    })
+
     return {
+      search,
+      itemsPerPage,
       headers: [
-        {
-          text: 'Name',
-          align: 'center',
-          sortable: true,
-          value: 'name',
-          width: '100px',
-          fixed: true
-        },
-        {
-          text: 'Calories',
-          align: 'center',
-          sortable: true,
-          width: '100px',
-          value: 'calories',
-          fixed: true
-        },
+        { title: 'Id_ke', align: 'center', value: 'id_ke', sortable: true },
+        { title: 'Sl_loai', align: 'center', value: 'sl_loai', sortable: true },
+        { title: 'Is Full', align: 'center', value: 'is_full', sortable: true },
       ],
-      data: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          test: 1,
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          test: 1,
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          test: 1,
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          test: 1,
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          test: 1,
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          test: 1,
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          test: 1,
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          test: 1,
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          test: 1,
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          test: 1,
-        },
-      ],
-    };
+      filteredItems,
+    }
   },
-};
+}
+// Dữ liệu JSON bạn muốn lưu vào localStorage
+const data = [
+  { id_ke: 1, sl_loai: 5, is_full: false },
+  { id_ke: 2, sl_loai: 4, is_full: false },
+  { id_ke: 3, sl_loai: 0, is_full: false },
+  { id_ke: 4, sl_loai: 0, is_full: false },
+]
+
+// Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage
+localStorage.setItem('keData', JSON.stringify(data))
+
+// Đọc dữ liệu từ localStorage
+const storedData = localStorage.getItem('keData')
+
+// Kiểm tra xem có dữ liệu trong localStorage không
+if (storedData) {
+  const parsedData = JSON.parse(storedData)
+  console.log(parsedData)
+} else {
+  console.log('Không có dữ liệu trong localStorage')
+}
 </script>
+<style>
+.v-pagination__list{
+  width: inherit !important;
+}
+</style>

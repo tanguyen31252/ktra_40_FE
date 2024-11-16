@@ -7,3 +7,11 @@ import TheWelcome from '../components/TheWelcome.vue'
     <TheWelcome />
   </header>
 </template>
+
+
+
+
+
+
+
+
