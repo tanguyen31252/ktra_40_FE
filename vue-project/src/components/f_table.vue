@@ -1,56 +1,31 @@
-<!-- <template>
-  <v-container>
-    <v-text-field
-      v-model="search"
-      label="Tìm kiếm"
-      clearable
-      append-icon="mdi-magnify"
-    />
-    
-    <v-data-table 
-      id="table"
-      :items-per-page="itemsPerPage"
+<template>
+  <v-card>
+    <v-data-table
       :headers="headers"
       :items="filteredItems"
-      item-value="id_ke"
-      hover
+      dense
+      fixed-header
+      items-per-page="5"
+      class="elevation-1"
       :header-props="{
-        'style': 'background-color: #4169E1; color: #ffffff;'
+        style: 'background-color: #4169E1; color: #ffffff;',
       }"
-    />
-  </v-container>
-</template> -->
-
-
-<template>
-    <v-card >
-      <v-data-table
-        :headers="headers"
-        :items="filteredItems"
-        dense
-        fixed-header
-
-        class="elevation-1"
-        :header-props="{
-          style: 'background-color: #4169E1; color: #ffffff;',
-        }"
-        
-      >
-        <template v-slot:top>
-          <v-toolbar flat>
-            <v-toolbar-title>Bảng</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Tìm kiếm"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-toolbar>
-        </template>
-      </v-data-table>
-    </v-card>
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>Bảng</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Tìm kiếm"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-toolbar>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -59,7 +34,6 @@ import { ref, computed, onMounted } from 'vue'
 export default {
   setup() {
     const search = ref('')
-    const itemsPerPage = ref(5)
     const items = ref([])
     // Khi component được mounted, tải dữ liệu từ localStorage
     onMounted(() => {
@@ -71,13 +45,13 @@ export default {
       }
     })
 
-    // Dữ liệu JSON mới mà bạn đã cung cấp
-    const data = [
-      { id_ke: 1, sl_loai: 5, is_full: false },
-      { id_ke: 2, sl_loai: 4, is_full: false },
-      { id_ke: 3, sl_loai: 0, is_full: false },
-      { id_ke: 4, sl_loai: 0, is_full: false },
-    ]
+    // // Dữ liệu JSON mới mà bạn đã cung cấp
+    // const data = [
+    //   { id_ke: 1, sl_loai: 5, is_full: false },
+    //   { id_ke: 2, sl_loai: 4, is_full: false },
+    //   { id_ke: 3, sl_loai: 0, is_full: false },
+    //   { id_ke: 4, sl_loai: 0, is_full: false },
+    // ]
 
     // Computed property để lọc các item theo từ khóa tìm kiếm
     const filteredItems = computed(() => {
@@ -88,7 +62,6 @@ export default {
 
     return {
       search,
-      itemsPerPage,
       headers: [
         { title: 'Id_ke', align: 'center', value: 'id_ke', sortable: true },
         { title: 'Sl_loai', align: 'center', value: 'sl_loai', sortable: true },
@@ -120,8 +93,10 @@ if (storedData) {
   console.log('Không có dữ liệu trong localStorage')
 }
 </script>
+
+
 <style>
-.v-pagination__list{
+.v-pagination__list {
   width: inherit !important;
 }
 </style>
