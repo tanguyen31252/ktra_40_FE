@@ -7,46 +7,52 @@ import signin from './components/SignIn.vue'
       <f_tableVue/>
    <router-v</v-app>iew/>
 </template> -->
-
 <template>
   <div class="table-container">
     <ReusableTable
-      title="Danh sách người dùng"
+      :title="tableTitle"
       :headers="userHeaders"
       :items="userData"
+      :item-fields="userFields"
       :items-per-page="5"
     />
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import ReusableTable from './Components/test_table.vue'
 
-export default {
+export default defineComponent({
+  name: 'UserList',
   components: {
     ReusableTable,
   },
   data() {
     return {
+      tableTitle: 'Danh sách người dùng',
       userHeaders: [
-        // { title: 'ID', value: 'id' },
-        { title: 'Tên', value: 'name' },
-        { title: 'Email', value: 'email' },
+        { title: 'Tên', value: 'name', sortable: true },
+        { title: 'Email', value: 'email', sortable: true },
         // Thêm các cột khác nếu cần
       ],
       userData: [
-        { id: 1, name: 'Nguyễn Văn A', email: 'a@example.com' },
-        { id: 2, name: 'Trần Thị B', email: 'b@example.com' },
+        { id: 1, name: 'Nguyễn Văn A', email: 'a@example.com', deleted: false },
+        { id: 2, name: 'Trần Thị B', email: 'b@example.com', deleted: false },
         // Thêm dữ liệu khác nếu cần
+      ],
+      userFields: [
+        { text: 'Tên', value: 'name' },
+        { text: 'Email', value: 'email' },
+        // Thêm các field khác nếu cần
       ],
     }
   },
-}
+})
 </script>
 
 <style scoped>
-.table-container :deep() .v-data-table tbody tr:hover {
-  background-color: #ff0000;
-  color: white;
+.table-container {
+  /* Add any specific styles if necessary */
 }
 </style>
