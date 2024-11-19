@@ -159,7 +159,7 @@ export default defineComponent({
         // Đóng dialog chỉnh sửa
         function closeDialog() {
             dialog.value = false;
-            editedShelf.value = {}  ;
+            editedShelf.value = {};
         }
 
         // Lưu thay đổi

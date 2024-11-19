@@ -1,17 +1,14 @@
-<<<<<<< HEAD
 <script setup lang="ts">
 // import ls_tableVue from './components/ls_table.vue'
 // import signin from './components/SignIn.vue'
 import TestView from './views/TestView.vue'
-</script>
+import kesach from './views/kesach.vue';
+</script> 
 
 
-<template>
-  <!-- <TestView/> -->
-  <!-- <f_tableVue/> -->
-  <router-view />
-</template>
-=======
+ <template>
+   <router-view />
+</template> 
 <!-- <template>
   <div class="table-container">
     <ReusableTable
@@ -120,10 +117,9 @@ export default defineComponent({
 //       <f_tableVue/>
 // </template> -->
 <!-- // </script>
->>>>>>> 5fe7cf13e0e842561a315fa42c0f553bfdc45abf
  -->
 
-<template>
+<!-- <template>
   <div class="table-container">
     <ReusableTable :title="tableTitle" :headers="userHeaders" :items="userData" :item-fields="userFields"
       :items-per-page="5" :enable-add-to-cart="true" />
@@ -163,4 +159,4 @@ export default defineComponent({
 .table-container {
   padding: 20px;
 }
-</style>
+</style> -->
