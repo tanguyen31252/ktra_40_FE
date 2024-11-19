@@ -1,82 +1,64 @@
 <template>
   <div class="table-container">
     <!-- Bảng Kệ Sách -->
-    <v-btn color="primary" @click="addShelf">Thêm Kệ Mới</v-btn>
-    <ReusableTable
-      :title="tableTitle"
-      :headers="userHeaders"
-      :items="filteredItems"
-      :item-fields="userFields"
-      :items-per-page="5"
-      @row-click="openRowDialog"
-      @add-shelf="addShelf"
-      @delete-shelf="deleteShelf"
-      @edit-shelf="editShelf"
-    />
+    <div class="table-KeSach">
+      <v-btn color="primary" @click="addShelf">Thêm Kệ Mới</v-btn>
+      <ReusableTable :title="tableTitle" :headers="userHeaders" :items="filteredItems" :item-fields="userFields"
+        :items-per-page="5" @row-click="openRowDialog" @add-shelf="addShelf" @delete-shelf="deleteShelf"
+        @edit-shelf="editShelf" />
 
-    <!-- Dialog for displaying row click details (Kệ Sách) -->
-    <v-dialog v-model="rowDialog" max-width="500px">
-      <v-card>
-        <v-card-title class="headline">Thông tin chi tiết (Kệ Sách)</v-card-title>
-        <v-card-text>
-          <p>{{ selectedItem }}</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeRowDialog">Đóng</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      <!-- Dialog for displaying row click details (Kệ Sách) -->
+      <v-dialog v-model="rowDialog" max-width="500px">
+        <v-card>
+          <v-card-title class="headline">Thông tin chi tiết (Kệ Sách)</v-card-title>
+          <v-card-text>
+            <p>{{ selectedItem }}</p>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeRowDialog">Đóng</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
-    <!-- Dialog for adding/editing shelf -->
-    <v-dialog v-model="dialog" persistent max-width="500px">
-      <v-card>
-        <v-card-title class="text-h5">{{ isEditing ? 'Chỉnh sửa kệ sách' : 'Thêm kệ sách' }}</v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-text-field
-              v-model="editedShelf.so_luong_loai_sach"
-              label="Số lượng loại sách"
-              type="number"
-            ></v-text-field>
-            <v-select
-              v-model="editedShelf.tinh_trang"
-              :items="['Trống', 'Đầy']"
-              label="Tình trạng"
-            ></v-select>
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn text color="red" @click="closeDialog">Hủy</v-btn>
-          <v-btn text color="green" @click="saveChanges">Lưu</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      <!-- Dialog for adding/editing shelf -->
+      <v-dialog v-model="dialog" persistent max-width="500px">
+        <v-card>
+          <v-card-title class="text-h5">{{ isEditing ? 'Chỉnh sửa kệ sách' : 'Thêm kệ sách' }}</v-card-title>
+          <v-card-text>
+            <v-form>
+              <v-text-field v-model="editedShelf.so_luong_loai_sach" label="Số lượng loại sách"
+                type="number"></v-text-field>
+              <v-select v-model="editedShelf.tinh_trang" :items="['Trống', 'Đầy']" label="Tình trạng"></v-select>
+            </v-form>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click="closeDialog">Hủy</v-btn>
+            <v-btn @click="saveChanges">Lưu</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+    <div class="table-LoaiSach">
+      <!-- Bảng Loại Sách -->
+      <ReusableTable :title="'Loại Sách'" :headers="userHeadersLoai" :items="userData" :item-fields="userFieldsLoai"
+        :items-per-page="5" @row-click="openRowDialogLoai" />
 
-    <!-- Bảng Loại Sách -->
-    <ReusableTable
-      :title="'Loại Sách'"
-      :headers="userHeadersLoai"
-      :items="userData"
-      :item-fields="userFieldsLoai"
-      :items-per-page="5"
-      @row-click="openRowDialogLoai"
-    />
-
-    <!-- Dialog for displaying row click details (Loại Sách) -->
-    <v-dialog v-model="rowDialogLoai" max-width="500px">
-      <v-card>
-        <v-card-title class="headline">Thông tin chi tiết (Loại Sách)</v-card-title>
-        <v-card-text>
-          <p>{{ selectedItemLoai }}</p>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="closeRowDialogLoai">Đóng</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+      <!-- Dialog for displaying row click details (Loại Sách) -->
+      <v-dialog v-model="rowDialogLoai" max-width="500px">
+        <v-card>
+          <v-card-title class="headline">Thông tin chi tiết (Loại Sách)</v-card-title>
+          <v-card-text>
+            <p>{{ selectedItemLoai }}</p>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeRowDialogLoai">Đóng</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
@@ -173,7 +155,7 @@ export default defineComponent({
       this.editedShelf = { id_ke: 0, so_luong_loai_sach: 0, tinh_trang: 'Trống', isActive: true };
       this.isEditing = false;
     },
-    saveChanges() {
+    saveChanges() {   
       if (this.editedShelf) {
         if (this.isEditing) {
           const index = this.shelves.findIndex((item) => item.id_ke === this.editedShelf.id_ke);
@@ -197,5 +179,12 @@ export default defineComponent({
 <style scoped>
 .table-container {
   padding: 20px;
+}
+</style>
+
+<style>
+.table-container{
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>
