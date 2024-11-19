@@ -13,8 +13,6 @@
                         hide-details></v-text-field>
                 </v-toolbar>
             </template>
-
-            <!-- Headers của bảng -->
             <template #headers="{ props }">
                 <tr class="custom-header">
                     <th v-for="header in computedHeaders" :key="header.value" class="header-cell">
@@ -76,7 +74,7 @@ interface Item {
     id_ke: number;
     so_luong_loai_sach: number;
     tinh_trang: string;
-    is_active: boolean;
+    isActive: boolean;  // Thêm thuộc tính isActive
 }
 
 export default defineComponent({
@@ -84,25 +82,31 @@ export default defineComponent({
     props: {
         title: { type: String, default: 'Bảng' },
         itemsPerPage: { type: Number, default: 5 },
-        headerProps: {
-            type: Object,
-            default: () => ({ style: 'background-color: #4169E1; color: #ffffff;' }),
-        },
     },
     setup(props) {
         const localSearch = ref('');
         const shelves = ref<Item[]>([]);
         const dialog = ref(false);
         const editedShelf = ref<Item | null>(null);
-        const isEditing = ref(false); // Chỉ thị đang sửa hay thêm
+        const isEditing = ref(false);
 
         // Lấy dữ liệu từ localStorage khi trang được tải
         onMounted(() => {
             const storedShelves = localStorage.getItem('bookShelves');
-            shelves.value = storedShelves ? JSON.parse(storedShelves) : [
-                { id_ke: 1, so_luong_loai_sach: 0, tinh_trang: 'Trống', is_active: true },
-                { id_ke: 2, so_luong_loai_sach: 0, tinh_trang: 'Trống', is_active: true },
-            ];
+            if (storedShelves) {
+                const parsedShelves = JSON.parse(storedShelves);
+                shelves.value = parsedShelves.every(item => item.id_ke !== undefined && item.id_ke !== null)
+                    ? parsedShelves
+                    : [
+                        { id_ke: 1, so_luong_loai_sach: 0, tinh_trang: 'Trống', isActive: true },
+                        { id_ke: 2, so_luong_loai_sach: 0, tinh_trang: 'Trống', isActive: true }
+                    ];
+            } else {
+                shelves.value = [
+                    { id_ke: 1, so_luong_loai_sach: 0, tinh_trang: 'Trống', isActive: true },
+                    { id_ke: 2, so_luong_loai_sach: 0, tinh_trang: 'Trống', isActive: true }
+                ];
+            }
         });
 
         // Headers của bảng
@@ -113,24 +117,34 @@ export default defineComponent({
             { text: 'Tính năng', value: 'actions', align: 'end', sortable: false },
         ]);
 
-        // Lọc danh sách theo mã kệ và chỉ hiển thị những kệ có is_active = true
         const computedItems = computed(() => {
-            if (!localSearch.value.trim()) return shelves.value.filter(item => item.is_active); // Chỉ hiển thị các item có is_active là true
-            return shelves.value.filter(item => item.is_active && String(item.id_ke).toLowerCase().includes(localSearch.value.toLowerCase()));
+            // Chỉ lọc và hiển thị các kệ còn hoạt động (isActive = true)
+            return shelves.value.filter(item => item.isActive);
         });
 
         // Thêm kệ mới
         function addShelf() {
-            const newId = shelves.value.length > 0 ? Math.max(...shelves.value.map(item => item.id_ke)) + 1 : 1;
-            editedShelf.value = { id_ke: newId, so_luong_loai_sach: 0, tinh_trang: 'Trống', is_active: true };
+            // Tính toán ID mới không trùng với các kệ đã xóa (kệ bị đánh dấu isActive = false)
+            const existingIds = shelves.value.map(item => item.id_ke);
+            let newId = 1;
+
+            // Lặp để tìm ID chưa bị trùng (tránh trùng ID nếu có nhiều kệ bị xóa)
+            while (existingIds.includes(newId)) {
+                newId++;
+            }
+
+            // Tạo kệ mới với ID và trạng thái 'Trống'
+            editedShelf.value = { id_ke: newId, so_luong_loai_sach: 0, tinh_trang: 'Trống', isActive: true };
+
+            // Mở dialog để chỉnh sửa thông tin kệ mới
             dialog.value = true;
         }
 
-        // Xóa kệ (đánh dấu là không hoạt động)
+        // Xóa kệ (thực tế chỉ đánh dấu là không hoạt động)
         function deleteShelf(item: Item) {
             const index = shelves.value.findIndex(i => i.id_ke === item.id_ke);
             if (index !== -1) {
-                shelves.value[index].is_active = false; // Đánh dấu là không hiển thị
+                shelves.value[index].isActive = false;
                 saveShelvesToLocalStorage();
             }
         }
@@ -145,7 +159,7 @@ export default defineComponent({
         // Đóng dialog chỉnh sửa
         function closeDialog() {
             dialog.value = false;
-            editedShelf.value = {};
+            editedShelf.value = {}  ;
         }
 
         // Lưu thay đổi
@@ -153,7 +167,9 @@ export default defineComponent({
             if (editedShelf.value) {
                 if (isEditing.value) {
                     const index = shelves.value.findIndex(item => item.id_ke === editedShelf.value!.id_ke);
-                    if (index !== -1) shelves.value[index] = { ...editedShelf.value };
+                    if (index !== -1) {
+                        shelves.value[index] = { ...editedShelf.value };
+                    }
                 } else {
                     shelves.value.push({ ...editedShelf.value });
                 }
@@ -162,7 +178,7 @@ export default defineComponent({
             }
         }
 
-        // Lưu dữ liệu vào localStorage
+        // Lưu lại danh sách kệ vào localStorage
         function saveShelvesToLocalStorage() {
             localStorage.setItem('bookShelves', JSON.stringify(shelves.value));
         }
