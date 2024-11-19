@@ -355,7 +355,7 @@ const data = [
 ]
 
 // Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage
-localStorage.setItem('keData', JSON.stringify(data))
+localStorage.setItem('SachData', JSON.stringify(data))
 
 // Đọc dữ liệu từ localStorage
 const storedData = localStorage.getItem('keData')
