@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SignIn from '../components/SignIn.vue';
 import TrangChu from '../components/TrangChu.vue';
+import testview from '../views/TestView.vue';
 
 const routes = [
-  { path: '/', component: SignIn },
+  { path: '/', component: testview },
   { path: '/TrangChu', component: TrangChu }
 ];
 

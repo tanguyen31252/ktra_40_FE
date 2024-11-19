@@ -9,6 +9,7 @@
       class="elevation-1"
       :header-props="headerProps"
       hover
+      @click:row="selectRow"
     >
       <template #top>
         <v-toolbar flat>
@@ -80,7 +81,7 @@ export default defineComponent({
     itemsPerPage: { type: Number, default: 5 },
     headerProps: { type: Object, default: () => ({ style: 'background-color: #4169E1; color: #ffffff;' }) },
   },
-  setup(props) {
+  setup(props, { emit }) {
     const localSearch = ref('');
     const dialog = ref(false);
     const editedItem = ref<Item>({});
@@ -98,13 +99,17 @@ export default defineComponent({
       )
     );
 
+    function selectRow(item: Item) {
+      emit('row-click', item);
+    }
+
     function onAddToCart(item: Item) {
       alert(`Thêm ${item.name || item.item} vào giỏ hàng!`);
     }
 
     function onUpdate(item: Item) {
-      editedItem.value = { ...item };  // sao chép dữ liệu của item vào editedItem
-      dialog.value = true;  // mở dialog khi cập nhật
+      editedItem.value = { ...item };
+      dialog.value = true;
     }
 
     function onDelete(item: Item) {
@@ -133,6 +138,7 @@ export default defineComponent({
       editedItem,
       computedHeaders,
       computedItems,
+      selectRow,
       onAddToCart,
       onUpdate,
       onDelete,
@@ -143,8 +149,8 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.elevation-1 {
-  /* Additional styling if needed */
+<style>
+.v-pagination__list {
+  width: auto !important;
 }
 </style>
