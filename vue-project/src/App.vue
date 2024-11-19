@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+<script setup lang="ts">
+import ls_tableVue from './components/ls_table.vue'
+// import signin from './components/SignIn.vue'
+</script>
+
+=======
 <!-- <script setup lang="ts">
 import f_tableVue from './components/f_table.vue'
 import signin from './components/SignIn.vue'
@@ -7,13 +14,41 @@ import signin from './components/SignIn.vue'
       <f_tableVue/>
    <router-v</v-app>iew/>
 </template> -->
+>>>>>>> 4d72e1450145b15fffc3aa5e5d44bb50b720268a
 <template>
+      <ls_tableVue/>
+</template>
+
+<!-- <script setup lang="ts">
+import l_tableVue from './components/l_table.vue'
+// import signin from './components/SignIn.vue'
+</script>
+
+<template>
+      <l_tableVue/>
+</template> -->
+
+<!-- <script setup lang="ts">
+import f_tableVue from './components/f_table.vue'
+// import signin from './components/SignIn.vue'
+</script>
+
+<template>
+      <f_tableVue/>
+</template> -->
+
+<!-- <template>
   <div class="table-container">
     <ReusableTable :title="tableTitle" :headers="userHeaders" :items="userData" :item-fields="userFields"
       :items-per-page="5" />
   </div>
-</template>
+</template> -->
 
+<<<<<<< HEAD
+<!-- <script lang="ts">
+import ReusableTable from './Components/test_table.vue'
+=======
+>>>>>>> 4d72e1450145b15fffc3aa5e5d44bb50b720268a
 
 <!-- Script của Nguyên!!, Bảo Anh khoá lại 18/11 -->
 <script lang="ts">
@@ -46,8 +81,13 @@ export default defineComponent({
       ],
     }
   },
+<<<<<<< HEAD
+}
+</script> -->
+=======
 })
 </script>
+>>>>>>> 4d72e1450145b15fffc3aa5e5d44bb50b720268a
 
 
 <!-- <style scoped>

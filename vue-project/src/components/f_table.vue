@@ -45,13 +45,6 @@ export default {
       }
     })
 
-    // // Dữ liệu JSON mới mà bạn đã cung cấp
-    // const data = [
-    //   { id_ke: 1, sl_loai: 5, is_full: false },
-    //   { id_ke: 2, sl_loai: 4, is_full: false },
-    //   { id_ke: 3, sl_loai: 0, is_full: false },
-    //   { id_ke: 4, sl_loai: 0, is_full: false },
-    // ]
 
     // Computed property để lọc các item theo từ khóa tìm kiếm
     const filteredItems = computed(() => {
