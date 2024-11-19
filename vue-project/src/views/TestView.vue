@@ -42,6 +42,9 @@
         userHeaders: [
           { title: 'Tên', value: 'name', sortable: true },
           { title: 'Email', value: 'email', sortable: true },
+          { title: 'Email', value: 'email', sortable: true },
+          { title: 'Email', value: 'email', sortable: true },
+          { title: 'Email', value: 'email', sortable: true },
           // Thêm các cột khác nếu cần
         ],
         userData: [
