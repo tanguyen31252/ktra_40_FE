@@ -13,7 +13,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Bảng</v-toolbar-title>
+          <v-toolbar-title>Kệ sách</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"

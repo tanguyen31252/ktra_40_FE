@@ -1,33 +1,21 @@
+
 <template>
   <v-card>
-    <v-data-table
-      :headers="headers"
-      :items="filteredItems"
-      dense
-      fixed-header
-      items-per-page="5"
-      class="elevation-1"
+    <v-data-table :headers="headers" :items="filteredItems" dense fixed-header items-per-page="5" class="elevation-1"
       :header-props="{
         style: 'background-color: #4169E1; color: #ffffff;',
-      }"
-    >
+      }">
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Bảng</v-toolbar-title>
+          <v-toolbar-title>Loại sách</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Tìm kiếm"
-            single-line
-            hide-details
-          ></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Tìm kiếm" single-line
+            hide-details></v-text-field>
         </v-toolbar>
       </template>
     </v-data-table>
   </v-card>
 </template>
-
 <script lang="ts">
 import { ref, computed, onMounted } from 'vue'
 
@@ -37,7 +25,7 @@ export default {
     const items = ref([])
     // Khi component được mounted, tải dữ liệu từ localStorage
     onMounted(() => {
-      const storedData = localStorage.getItem('keData')
+      const storedData = localStorage.getItem('LoaiData')
       if (storedData) {
         items.value = JSON.parse(storedData)
       } else {
@@ -81,7 +69,7 @@ const data = [
 localStorage.setItem('LoaiData', JSON.stringify(data))
 
 // Đọc dữ liệu từ localStorage
-const storedData = localStorage.getItem('keData')
+const storedData = localStorage.getItem('LoaiData')
 
 // Kiểm tra xem có dữ liệu trong localStorage không
 if (storedData) {
