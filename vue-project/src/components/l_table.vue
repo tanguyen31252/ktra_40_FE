@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-data-table
-      :headers="headers"
+      :headers="userHeaders"
       :items="filteredItems"
       dense
       fixed-header
@@ -13,7 +13,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Bảng</v-toolbar-title>
+          <v-toolbar-title>Loại sách</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -27,8 +27,62 @@
     </v-data-table>
   </v-card>
 </template>
-
 <script lang="ts">
+import { defineComponent, ref } from 'vue';
+import ReusableTable from '../components/TestTable.vue';
+
+export default defineComponent({
+  name: 'UserList',
+  components: {
+    ReusableTable,
+  },
+  data() {
+    return {
+      tableTitle: 'Danh sách người dùng',
+      userHeaders: [
+        { title: 'Loai', align: 'center', value: 'the_loai_id', sortable: true },
+        { title: 'Tên Thể loại', align: 'center', value: 'ten_the_loai', sortable: true },
+        { title: 'Số lượng sách', align: 'center', value: 'so_luong_sach', sortable: true },
+        { title: 'Kệ', align: 'center', value: 'id_ke', sortable: true },
+      ],
+      userData: JSON.parse(localStorage.getItem('LoaiData') || '[]'),
+      userFields: [
+        { text: 'Loai', value: 'the_loai_id' },
+        { text: 'Tên Thể loại', value: 'ten_the_loai' },
+        { text: 'Số lượng sách', value: 'so_luong_sach' },
+        { text: 'Kệ', value: 'id_ke' },    
+    ],
+      rowDialog: false,
+      selectedItem: {},
+    };
+  },
+  computed: {
+    filteredItems() {
+      if (!this.search) {
+        return this.userData;
+      }
+      return this.userData.filter((item) =>
+        Object.values(item)
+          .join(' ')
+          .toLowerCase()
+          .includes(this.search.toLowerCase())
+      );
+    },
+  },
+
+  methods: {
+    openRowDialog(item) {
+      this.selectedItem = item;
+      this.rowDialog = true;
+    },
+    closeRowDialog() {
+      this.rowDialog = false;
+      this.selectedItem = {};
+    }
+  }
+});
+</script>
+<!-- <script lang="ts">
 import { ref, computed, onMounted } from 'vue'
 
 export default {
@@ -90,7 +144,7 @@ if (storedData) {
 } else {
   console.log('Không có dữ liệu trong localStorage')
 }
-</script>
+</script> -->
 
 
 <style>

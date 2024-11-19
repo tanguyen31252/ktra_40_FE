@@ -149,7 +149,7 @@ export default defineComponent({
 }
 </style>
 
-<style>
+<!-- <style>
   table {
   table-layout: fixed; /* Giữ kích thước cố định cho các ô */
   border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
@@ -171,4 +171,4 @@ th, td {
   padding: 8px; /* Khoảng cách trong ô */
   word-wrap: break-word; /* Ngắt dòng nếu quá dài */
 }
-</style>
+</style> -->
