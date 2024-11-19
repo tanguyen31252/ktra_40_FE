@@ -3,11 +3,13 @@ import SignIn from '../components/SignIn.vue';
 import TrangChu from '../components/TrangChu.vue';
 import testview from '../views/TestView.vue';
 // import testview from '../views/testSach.vue';
-import kesach from '../views/kesach.vue';
+import kesach from '../components/Kesach.vue';
+import parent from '../views/parent.vue';
 
 const routes = [
-  { path: '/', component: testview },
-  { path: '/TrangChu', component: TrangChu }
+ 
+  { path: '/', component: parent }
+
 ];
 
 const router = createRouter({
