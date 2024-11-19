@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import parent from '../views/parent.vue';
-// import parent from '../views/HomeViewPrimary.vue'
-// import dulieu from '../components/dulieu/l_table.vue'
+import f from '../components/dulieu/f_table.vue'
 
 const routes = [
   { path: '/', component: parent }
