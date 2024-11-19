@@ -16,7 +16,7 @@ import signin from './components/SignIn.vue'
 
 
 <!-- Script của Nguyên!!, Bảo Anh khoá lại 18/11 -->
-<!-- <script lang="ts">
+<script lang="ts">
 import { defineComponent } from 'vue'
 import ReusableTable from './Components/TestTable.vue'
 
@@ -46,16 +46,16 @@ export default defineComponent({
     }
   },
 })
-</script> -->
+</script>
 
 
-<style scoped>
+<!-- <style scoped>
 .table-container {
   /* Add any specific styles if necessary */
 }
-</style>
+</style> -->
 
-<!-- Script riêng của Bảo Anh, không sài nhưng đừng xoá !!!, để gọi ra thôi -->
+<!-- Script riêng của Bảo Anh, không sài nhưng đừng xoá !!!, để gọi ra thôi
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ReusableTable from './views/kesach.vue'
@@ -83,4 +83,4 @@ export default defineComponent({
     }
   },
 })
-</script>
+</script> -->
