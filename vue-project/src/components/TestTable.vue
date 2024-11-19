@@ -139,3 +139,27 @@ export default defineComponent({
   /* Additional styling if needed */
 }
 </style>
+
+<style>
+  table {
+  table-layout: fixed; /* Giữ kích thước cố định cho các ô */
+  border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
+}
+th:nth-child(1), td:nth-child(1) {
+  width: 15%; /* Kích thước cột 1 */
+}
+th:nth-child(2), td:nth-child(2) {
+  width: 15%; /* Kích thước cột 2 */
+}
+th:nth-child(3), td:nth-child(3) {
+  width: 35%; /* Kích thước cột 3 */
+}
+th:nth-child(4), td:nth-child(4) {
+  width: 35%; /* Kích thước cột 3 */
+}
+th, td {
+  border: 1px solid #ddd; /* Đường viền ô */
+  padding: 8px; /* Khoảng cách trong ô */
+  word-wrap: break-word; /* Ngắt dòng nếu quá dài */
+}
+</style>

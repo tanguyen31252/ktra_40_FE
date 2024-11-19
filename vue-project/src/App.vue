@@ -1,24 +1,19 @@
-<!-- <script setup lang="ts">
-import f_tableVue from './components/f_table.vue'
-import signin from './components/SignIn.vue'
-</script> -->
-
 <!-- <template>
-      <f_tableVue/>
-   <router-v</v-app>iew/>
-</template> -->
-<template>
   <div class="table-container">
-    <ReusableTable :title="tableTitle" :headers="userHeaders" :items="userData" :item-fields="userFields"
-      :items-per-page="5" />
+    <ReusableTable
+      :title="tableTitle"
+      :headers="userHeaders"
+      :items="userData"
+      :item-fields="userFields"
+      :items-per-page="5"
+      :enable-add-to-cart="true"
+    />
   </div>
 </template>
 
-
-<!-- Script của Nguyên!!, Bảo Anh khoá lại 18/11 -->
 <!-- <script lang="ts">
 import { defineComponent } from 'vue'
-import ReusableTable from './Components/TestTable.vue'
+import ReusableTable from './components/TestTable.vue'
 
 export default defineComponent({
   name: 'UserList',
@@ -27,13 +22,25 @@ export default defineComponent({
   },
   data() {
     return {
-      tableTitle: 'Danh sách người dùng',
+      tableTitle: 'Danh sách Kệ',
       userHeaders: [
-        { title: 'Tên', value: 'name', sortable: true },
-        { title: 'Email', value: 'email', sortable: true },
+        { title: 'Kệ', align: 'center', value: 'id_ke', sortable: true },
+        { title: 'Số lượng loại', align: 'center', value: 'sl_loai', sortable: true },
+        { title: 'Tình trạng', align: 'center', value: 'is_full', sortable: true },
         // Thêm các cột khác nếu cần
       ],
       userData: [
+        { id_ke: 1, sl_loai: 5, is_full: 'Đã đầy' },
+        { id_ke: 2, sl_loai: 4, is_full: 'Đã đầy' },
+        { id_ke: 3, sl_loai: 0, is_full: 'Còn chỗ' },
+        { id_ke: 4, sl_loai: 0, is_full: 'Còn chỗ' },
+    ],
+    userFields: [
+        { text: 'Kệ', value: 'id_ke' },
+        { text: 'Số lượng loại', value: 'sl_loai' },
+        { text: 'Tình trạng',value:'is_full'},
+    ],
+     
         { id: 1, name: 'Nguyễn Văn A', email: 'a@example.com', deleted: false },
         { id: 2, name: 'Trần Thị B', email: 'b@example.com', deleted: false },
         // Thêm dữ liệu khác nếu cần
@@ -83,4 +90,13 @@ export default defineComponent({
     }
   },
 })
-</script>
+//  </script> 
+// <!-- <script setup lang="ts">
+// import f_tableVue from './components/f_table.vue'
+// // import signin from './components/SignIn.vue'
+// </script>
+
+// <template>
+//       <f_tableVue/>
+// </template> -->
+// </script>
