@@ -21,7 +21,7 @@ import signin from './components/SignIn.vue'
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import ReusableTable from './Components/test_table.vue'
+import ReusableTable from './Components/TestTable.vue'
 
 export default defineComponent({
   name: 'UserList',

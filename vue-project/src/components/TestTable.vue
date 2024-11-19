@@ -132,7 +132,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.elevation-1 {
-  /* Additional styling if needed */
+.v-pagination__list {
+  width: auto !important;
 }
 </style>
