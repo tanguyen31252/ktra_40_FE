@@ -57,8 +57,9 @@ export default {
       search,
       headers: [
         { title: 'Id_ke', align: 'center', value: 'id_ke', sortable: true },
-        { title: 'Sl_loai', align: 'center', value: 'sl_loai', sortable: true },
-        { title: 'Is Full', align: 'center', value: 'is_full', sortable: true },
+        { title: 'Sl_loai', align: 'center', value: 'sl_loai' , sortable: true },
+        { title: 'Is Full', align: 'center', value: 'is_full ', sortable: true },
+        { title: 'Is Active', align: 'center', value: 'is_active', sortable: true },
       ],
       filteredItems,
     }
@@ -66,10 +67,10 @@ export default {
 }
 // Dữ liệu JSON bạn muốn lưu vào localStorage
 const data = [
-  { id_ke: 1, sl_loai: 5, is_full: false },
-  { id_ke: 2, sl_loai: 4, is_full: false },
-  { id_ke: 3, sl_loai: 0, is_full: false },
-  { id_ke: 4, sl_loai: 0, is_full: false },
+  { id_ke: 1, sl_loai: 5, is_full: 'Đầy',is_active:true },
+  { id_ke: 2, sl_loai: 4, is_full: 'Đầy', is_active: true },
+  { id_ke: 3, sl_loai: 0, is_full: 'Trống', is_active: true },
+  { id_ke: 4, sl_loai: 0, is_full: 'Trống', is_active: true },
 ]
 
 // Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage

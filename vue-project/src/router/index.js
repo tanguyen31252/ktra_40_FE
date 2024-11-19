@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 // // import testview from '../views/testSach.vue';
 // import kesach from '../components/Kesach.vue';
 import parent from '../views/parent.vue';
+import f from '../components/dulieu/f_table.vue'
 
 const routes = [
  
