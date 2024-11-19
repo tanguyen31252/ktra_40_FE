@@ -10,6 +10,7 @@
       :header-props="headerProps"
       hover
       @click:row="selectRow"
+      height="100px"
     >
       <template #top>
         <v-toolbar flat>
@@ -103,9 +104,9 @@ export default defineComponent({
         (item: Item) =>
           !item.deleted &&
           Object.values(item).some((value) =>
-            String(value).toLowerCase().includes(localSearch.value.toLowerCase())
-          )
-      )
+            String(value).toLowerCase().includes(localSearch.value.toLowerCase()),
+          ),
+      ),
     )
 
     function selectRow(item: Item) {

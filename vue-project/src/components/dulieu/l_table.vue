@@ -9,6 +9,7 @@
         <v-toolbar flat>
           <v-toolbar-title>Loại sách</v-toolbar-title>
           <v-spacer></v-spacer>
+          
           <v-text-field v-model="search" append-icon="mdi-magnify" label="Tìm kiếm" single-line
             hide-details></v-text-field>
         </v-toolbar>
@@ -84,5 +85,6 @@ if (storedData) {
 <style>
 .v-pagination__list {
   width: inherit !important;
+  
 }
 </style>
