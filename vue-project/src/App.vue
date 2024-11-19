@@ -1,14 +1,31 @@
-<!-- <script setup lang="ts">
-import f_tableVue from './components/f_table.vue'
-import signin from './components/SignIn.vue'
-</script> -->
-
-<!-- <template>
-      <f_tableVue/>
-   <router-v</v-app>iew/>
-</template> -->
+<script setup lang="ts">
+import ls_tableVue from './components/ls_table.vue'
+// import signin from './components/SignIn.vue'
+</script>
 
 <template>
+      <ls_tableVue/>
+</template>
+
+<!-- <script setup lang="ts">
+import l_tableVue from './components/l_table.vue'
+// import signin from './components/SignIn.vue'
+</script>
+
+<template>
+      <l_tableVue/>
+</template> -->
+
+<!-- <script setup lang="ts">
+import f_tableVue from './components/f_table.vue'
+// import signin from './components/SignIn.vue'
+</script>
+
+<template>
+      <f_tableVue/>
+</template> -->
+
+<!-- <template>
   <div class="table-container">
     <ReusableTable
       title="Danh sách người dùng"
@@ -17,9 +34,9 @@ import signin from './components/SignIn.vue'
       :items-per-page="5"
     />
   </div>
-</template>
+</template> -->
 
-<script lang="ts">
+<!-- <script lang="ts">
 import ReusableTable from './Components/test_table.vue'
 
 export default {
@@ -42,7 +59,7 @@ export default {
     }
   },
 }
-</script>
+</script> -->
 
 <style scoped>
 .table-container :deep() .v-data-table tbody tr:hover {
