@@ -1,19 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SignIn from '../components/SignIn.vue';
 import TrangChu from '../components/TrangChu.vue';
-<<<<<<< HEAD
 import testview from '../views/TestView.vue';
-
+import l_table from '../views/Loaisach.vue'
+import k_table from '../views/kesach.vue'
 const routes = [
-  { path: '/', component: testview },
-=======
-import LTable from '../components/l_table.vue';
-import tTable from '../views/';
+  { path: '/', component: l_table },
 
-
-const routes = [
-  { path: '/', component: LTable },
->>>>>>> 5fe7cf13e0e842561a315fa42c0f553bfdc45abf
   { path: '/TrangChu', component: TrangChu }
 ];
 

@@ -1,26 +1,12 @@
 <template>
   <v-card>
-<<<<<<< HEAD
-    <v-data-table
-      :headers="computedHeaders"
-      :items="computedItems"
-      dense
-      fixed-header
-      :items-per-page="itemsPerPage"
-      class="elevation-1"
-      :header-props="headerProps"
-      hover
-      @click:row="selectRow"
-    >
-=======
     <v-data-table :headers="computedHeaders" :items="computedItems" dense fixed-header :items-per-page="itemsPerPage"
-      class="elevation-1" :header-props="headerProps" hover>
->>>>>>> 5fe7cf13e0e842561a315fa42c0f553bfdc45abf
+      class="elevation-1" :header-props="headerProps" hover height="300px">
       <template #top>
         <v-toolbar flat>
           <v-toolbar-title>{{ title }}</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="addShelf">Thêm kệ sách</v-btn>
+          <v-btn color="primary" @click="addShelf">Thêm </v-btn>
           <v-text-field v-model="localSearch" append-icon="mdi-magnify" label="Tìm kiếm" single-line
             hide-details></v-text-field>
         </v-toolbar>
@@ -97,19 +83,16 @@ export default defineComponent({
       )
     );
 
-<<<<<<< HEAD
     function selectRow(item: Item) {
       emit('row-click', item);
     }
 
-=======
     function addShelf() {
       // Tìm mã kệ mới bằng cách lấy id_ke cao nhất, nếu không có thì gán là 1
       const newId = shelves.value.length > 0 ? Math.max(...shelves.value.map(item => item.id_ke)) + 1 : 1;
       editedShelf.value = { id_ke: newId, so_luong_loai_sach: 0, tinh_trang: 'Trống' };
       dialog.value = true; // Mở dialog để nhập thông tin kệ
     }
->>>>>>> 5fe7cf13e0e842561a315fa42c0f553bfdc45abf
     function onAddToCart(item: Item) {
       alert(`Thêm ${item.name || item.item} vào giỏ hàng!`);
     }

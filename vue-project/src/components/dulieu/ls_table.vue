@@ -13,7 +13,7 @@
     >
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Bảng</v-toolbar-title>
+          <v-toolbar-title>Sách</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-text-field
             v-model="search"
@@ -37,7 +37,7 @@ export default {
     const items = ref([])
     // Khi component được mounted, tải dữ liệu từ localStorage
     onMounted(() => {
-      const storedData = localStorage.getItem('keData')
+      const storedData = localStorage.getItem('SachData')
       if (storedData) {
         items.value = JSON.parse(storedData)
       } else {
@@ -358,7 +358,7 @@ const data = [
 localStorage.setItem('SachData', JSON.stringify(data))
 
 // Đọc dữ liệu từ localStorage
-const storedData = localStorage.getItem('keData')
+const storedData = localStorage.getItem('SachData')
 
 // Kiểm tra xem có dữ liệu trong localStorage không
 if (storedData) {

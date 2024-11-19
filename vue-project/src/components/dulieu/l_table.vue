@@ -1,88 +1,22 @@
+
 <template>
   <v-card>
-    <v-data-table
-      :headers="userHeaders"
-      :items="filteredItems"
-      dense
-      fixed-header
-      items-per-page="5"
-      class="elevation-1"
+    <v-data-table :headers="headers" :items="filteredItems" dense fixed-header items-per-page="5" class="elevation-1"
       :header-props="{
         style: 'background-color: #4169E1; color: #ffffff;',
-      }"
-    >
+      }">
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Loại sách</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Tìm kiếm"
-            single-line
-            hide-details
-          ></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Tìm kiếm" single-line
+            hide-details></v-text-field>
         </v-toolbar>
       </template>
     </v-data-table>
   </v-card>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import ReusableTable from '../components/TestTable.vue';
-
-export default defineComponent({
-  name: 'UserList',
-  components: {
-    ReusableTable,
-  },
-  data() {
-    return {
-      tableTitle: 'Danh sách người dùng',
-      userHeaders: [
-        { title: 'Loai', align: 'center', value: 'the_loai_id', sortable: true },
-        { title: 'Tên Thể loại', align: 'center', value: 'ten_the_loai', sortable: true },
-        { title: 'Số lượng sách', align: 'center', value: 'so_luong_sach', sortable: true },
-        { title: 'Kệ', align: 'center', value: 'id_ke', sortable: true },
-      ],
-      userData: JSON.parse(localStorage.getItem('LoaiData') || '[]'),
-      userFields: [
-        { text: 'Loai', value: 'the_loai_id' },
-        { text: 'Tên Thể loại', value: 'ten_the_loai' },
-        { text: 'Số lượng sách', value: 'so_luong_sach' },
-        { text: 'Kệ', value: 'id_ke' },    
-    ],
-      rowDialog: false,
-      selectedItem: {},
-    };
-  },
-  computed: {
-    filteredItems() {
-      if (!this.search) {
-        return this.userData;
-      }
-      return this.userData.filter((item) =>
-        Object.values(item)
-          .join(' ')
-          .toLowerCase()
-          .includes(this.search.toLowerCase())
-      );
-    },
-  },
-
-  methods: {
-    openRowDialog(item) {
-      this.selectedItem = item;
-      this.rowDialog = true;
-    },
-    closeRowDialog() {
-      this.rowDialog = false;
-      this.selectedItem = {};
-    }
-  }
-});
-</script>
-<!-- <script lang="ts">
 import { ref, computed, onMounted } from 'vue'
 
 export default {
@@ -91,7 +25,7 @@ export default {
     const items = ref([])
     // Khi component được mounted, tải dữ liệu từ localStorage
     onMounted(() => {
-      const storedData = localStorage.getItem('keData')
+      const storedData = localStorage.getItem('LoaiData')
       if (storedData) {
         items.value = JSON.parse(storedData)
       } else {
@@ -135,7 +69,7 @@ const data = [
 localStorage.setItem('LoaiData', JSON.stringify(data))
 
 // Đọc dữ liệu từ localStorage
-const storedData = localStorage.getItem('keData')
+const storedData = localStorage.getItem('LoaiData')
 
 // Kiểm tra xem có dữ liệu trong localStorage không
 if (storedData) {
@@ -144,7 +78,7 @@ if (storedData) {
 } else {
   console.log('Không có dữ liệu trong localStorage')
 }
-</script> -->
+</script>
 
 
 <style>
