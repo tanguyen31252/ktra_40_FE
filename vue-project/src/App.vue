@@ -36,6 +36,7 @@ export default defineComponent({
       userData: [
         { id: 1, name: 'Nguyễn Văn A', email: 'a@example.com', deleted: false },
         { id: 2, name: 'Trần Thị B', email: 'b@example.com', deleted: false },
+        { id: 3, name: 'Trần Thị C', email: 'b@example.com', deleted: false },
         // Thêm dữ liệu khác nếu cần
       ],
       userFields: [
