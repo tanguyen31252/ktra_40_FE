@@ -10,7 +10,11 @@
       :header-props="headerProps"
       hover
       @click:row="selectRow"
+<<<<<<< HEAD
       height="400px"
+=======
+      height="100px"
+>>>>>>> 42db15b1bf5a35252bfe9469975e639dbd831a4a
     >
       <template #top>
         <v-toolbar flat>
