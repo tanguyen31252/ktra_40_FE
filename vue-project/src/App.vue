@@ -10,8 +10,7 @@
     />
   </div>
 </template>
-
-<!-- <script lang="ts">
+ <script lang="ts">
 import { defineComponent } from 'vue'
 import ReusableTable from './components/TestTable.vue'
 
@@ -63,6 +62,13 @@ export default defineComponent({
 </style> -->
 
 <!-- Script riêng của Bảo Anh, không sài nhưng đừng xoá !!!, để gọi ra thôi -->
+
+<!-- <template>
+  <div class="table-container">
+    <ReusableTable :title="tableTitle" :headers="userHeaders" :items="userData" :item-fields="userFields"
+      :items-per-page="5" :enable-add-to-cart="true" />
+  </div>
+</template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 import ReusableTable from './views/kesach.vue'
@@ -86,11 +92,11 @@ export default defineComponent({
       ],
       userFields: [
         // Thêm các field khác nếu cần
-    ],
+      ],
     }
-  },
-})
-//  </script> 
+  }, -->
+<!-- // })
+//  </script> -->
 // <!-- <script setup lang="ts">
 // import f_tableVue from './components/f_table.vue'
 // // import signin from './components/SignIn.vue'
@@ -99,4 +105,46 @@ export default defineComponent({
 // <template>
 //       <f_tableVue/>
 // </template> -->
-// </script>
+<!-- // </script> -->
+
+<template>
+  <div class="table-container">
+    <ReusableTable :title="tableTitle" :headers="userHeaders" :items="userData" :item-fields="userFields"
+      :items-per-page="5" :enable-add-to-cart="true" />
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import ReusableTable from './views/kesach.vue'
+
+export default defineComponent({
+  name: 'UserList',
+  components: {
+    ReusableTable,
+  },
+  data() {
+    return {
+      tableTitle: 'Kệ sách',
+      userHeaders: [
+        { title: 'Mã kệ', value: 'id_ke', sortable: true },
+        { title: 'Số lượng loại sách', value: 'num_loaisach', sortable: true },
+        { title: 'Tình trạng', value: 'update', sortable: true },
+        // Thêm các cột khác nếu cần
+      ],
+      userData: [
+        // Dữ liệu thực tế của bạn sẽ ở đây
+      ],
+      userFields: [
+        // Các trường dữ liệu khác nếu cần
+      ],
+    }
+  },
+})
+</script>
+
+<style scoped>
+.table-container {
+  padding: 20px;
+}
+</style>
