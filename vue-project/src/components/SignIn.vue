@@ -1,84 +1,122 @@
 <template>
-    <article>
-      <div class="container" :class="{'sign-up-active': signUp}">
-        <div class="overlay-container">
-          <div class="overlay">
-            <div class="overlay-left">
-              <h2>Chào Mừng Trở Lại!</h2>
-              <p>Vui lòng nhập thông tin cá nhân của bạn</p>
-              <button class="invert" id="signIn" @click="signUp = !signUp">Đăng nhập</button>
-            </div>
-            <div class="overlay-right">
-              <h2>Xin Chào Bạn!</h2>
-              <p>Vui lòng đăng ký thông tin cá nhân của bạn</p>
-              <button class="invert" id="signUp" @click="signUp = !signUp">Đăng ký</button>
-            </div>
+  <article>
+    <div class="container" :class="{'sign-up-active': view === 'signUp'}">
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-left">
+            <h2>Chào Mừng Trở Lại!</h2>
+            <p>Vui lòng nhập thông tin cá nhân của bạn</p>
+            <button class="invert" id="signIn" @click="switchToSignIn">Đăng nhập</button>
+          </div>
+          <div class="overlay-right">
+            <h2>Xin Chào Bạn!</h2>
+            <p>Vui lòng đăng ký thông tin cá nhân của bạn</p>
+            <button class="invert" id="signUp" @click="switchToSignUp">Đăng ký</button>
           </div>
         </div>
-        <form class="sign-in" v-if="!signUp" @submit.prevent="attemptLogin">
-          <h2>Đăng Nhập</h2>
-          <div>Sử dụng tài khoản của bạn</div>
-          <input type="email" v-model="email" placeholder="Email" />
-          <input type="password" v-model="password" placeholder="Mật khẩu" />
-          <a href="#">Quên mật khẩu của bạn?</a>
-          <button type="submit">Đăng nhập</button>
-        </form>
-        <form class="sign-up" v-if="signUp" @submit.prevent="attemptSignUp">
-          <h2>Đăng Ký</h2>
-          <div>Tạo tài khoản mới</div>
-          <input type="email" v-model="newEmail" placeholder="Email" />
-          <input type="password" v-model="newPassword" placeholder="Mật khẩu" />
-          <button type="submit">Đăng ký</button>
-        </form>
       </div>
-    </article>
-  </template>
-  
-  <script lang="ts">
-  export default {
-        data() {
+
+      <!-- Đăng Nhập -->
+      <form class="sign-in" v-if="view === 'signIn'" @submit.prevent="attemptLogin">
+        <h2>Đăng Nhập</h2>
+        <div>Sử dụng tài khoản của bạn</div>
+        <input type="email" v-model="email" placeholder="Email" />
+        <input type="password" v-model="password" placeholder="Mật khẩu" />
+        <a href="#" @click.prevent="switchToForgotPassword">Quên mật khẩu của bạn?</a>
+        <button type="submit">Đăng nhập</button>
+      </form>
+
+      <!-- Đăng Ký -->
+      <form class="sign-up" v-if="view === 'signUp'" @submit.prevent="attemptSignUp">
+        <h2>Đăng Ký</h2>
+        <div>Tạo tài khoản mới</div>
+        <input type="email" v-model="newEmail" placeholder="Email" />
+        <input type="password" v-model="newPassword" placeholder="Mật khẩu" />
+        <button type="submit">Đăng ký</button>
+      </form>
+
+      <!-- Quên Mật Khẩu -->
+      <form class="forgot-password" v-if="view === 'forgotPassword'" @submit.prevent="attemptPasswordReset">
+        <h2>Quên Mật Khẩu</h2>
+        <div>Nhập email và mật khẩu mới của bạn</div>
+        <input type="email" v-model="resetEmail" placeholder="Email" />
+        <input type="password" v-model="resetPassword" placeholder="Mật khẩu mới" />
+        <button type="submit">Đặt lại mật khẩu</button>
+      </form>
+    </div>
+  </article>
+</template>
+
+<script lang="ts">
+export default {
+  data() {
     return {
-        signUp: false,
-        email: '',
-        password: '',
-        newEmail: '',
-        newPassword: '',
-        accounts: JSON.parse(localStorage.getItem('accounts')) || [
+      view: 'signIn', // 'signIn', 'signUp', 'forgotPassword'
+      email: '',
+      password: '',
+      newEmail: '',
+      newPassword: '',
+      resetEmail: '',
+      resetPassword: '',
+      accounts: JSON.parse(localStorage.getItem('accounts')) || [
         { email: 'Admin@gmail.com', password: '00001', type: 1 },
         { email: 'Thuthu@gmail.com', password: '00002', type: 2 },
-        { email: 'Docgia@gmail.com', password: '00003', type: 3 }
-        ]
+        { email: 'Docgia@gmail.com', password: '00003', type: 3 },
+      ],
     };
+  },
+  methods: {
+    switchToSignIn() {
+      this.view = 'signIn';
     },
-    methods: {
-      attemptLogin() {
-        const account = this.accounts.find(
-          account => account.email === this.email && account.password === this.password
-        );
-        if (account) {
-          alert(`Chào mừng ${account.email.split('@')[0]}!`);
-          this.$router.push('TrangChu'); // Chuyển hướng sau khi đăng nhập thành công
-        } else {
-          alert('Email hoặc mật khẩu không đúng.');
-        }
-      },
-        attemptSignUp() {
-        if (this.accounts.find(account => account.email === this.newEmail)) {
-            alert('Email đã tồn tại.');
-        } else if (this.newPassword.length < 8) {
-            alert('Mật khẩu phải đủ ít nhất 8 ký tự.');
-        } else {
-            const newAccount = { email: this.newEmail, password: this.newPassword, type: 3 };
-            this.accounts.push(newAccount);
-            // Lưu account vào localStorage
-            localStorage.setItem('accounts', JSON.stringify(this.accounts));
-            alert('Đăng ký thành công!');
-            this.signUp = false;
-        }
-    }
-    }
-  };
-  </script>
+    switchToSignUp() {
+      this.view = 'signUp';
+    },
+    switchToForgotPassword() {
+      this.view = 'forgotPassword';
+    },
+    attemptLogin() {
+      const account = this.accounts.find(
+        (account) => account.email === this.email && account.password === this.password
+      );
+      if (account) {
+        alert(`Chào mừng ${account.email.split('@')[0]}!`);
+        this.$router.push('TrangChu'); // Chuyển hướng sau khi đăng nhập thành công
+      } else {
+        alert('Email hoặc mật khẩu không đúng.');
+      }
+    },
+    attemptSignUp() {
+      if (this.accounts.find((account) => account.email === this.newEmail)) {
+        alert('Email đã tồn tại.');
+      } else if (this.newPassword.length < 8) {
+        alert('Mật khẩu phải đủ ít nhất 8 ký tự.');
+      } else {
+        const newAccount = { email: this.newEmail, password: this.newPassword, type: 3 };
+        this.accounts.push(newAccount);
+        localStorage.setItem('accounts', JSON.stringify(this.accounts));
+        alert('Đăng ký thành công!');
+        this.switchToSignIn();
+      }
+    },
+    attemptPasswordReset() {
+      const account = this.accounts.find((account) => account.email === this.resetEmail);
+      if (!account) {
+        alert('Email không tồn tại.');
+      } else if (this.resetPassword.length < 8) {
+        alert('Mật khẩu phải đủ ít nhất 8 ký tự.');
+      } else {
+        account.password = this.resetPassword;
+        localStorage.setItem('accounts', JSON.stringify(this.accounts));
+        alert('Đặt lại mật khẩu thành công!');
+        this.switchToSignIn();
+      }
+    },
+  },
+};
+</script>
+
+
   
   
   <style lang="scss" scoped>
