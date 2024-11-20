@@ -7,6 +7,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vite App</title>
 </head>
+<style>
+  body {
+    margin: 0;
+    margin-bottom: 80px;
+    font-family: Arial, sans-serif;
+  }
+
+  footer {
+    background-color: #4169E1;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    box-sizing: border-box;
+    /* Bao gồm padding trong tính toán chiều rộng */
+    flex-wrap: wrap;
+    /* Cho phép các phần tử trong footer xuống dòng nếu cần */
+  }
+
+  footer p {
+    margin: 0;
+  }
+
+  .footer-bottom {
+    margin: 5px 0;
+  }
+
+  .back-to-top {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px){
+    .moving-element {
+    transition: transform 0.5s ease;
+    right: 0;
+  }
+
+  .moving-element:hover {
+    transform: translate(-50vw, 0);
+  }
+  }
+  /* Media Queries */
+  @media (max-width: 768px) {
+    footer {
+      justify-content: center;
+      /* Trung tâm hóa nội dung trên màn hình nhỏ */
+      text-align: center;
+      /* Căn giữa nội dung văn bản */
+    }
+
+    #IMGLogoHead {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .footer-bottom {
+      width: 100%;
+      /* Đảm bảo các phần tử chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+    }
+  }
+
+  @media (max-width: 480px) {
+    body {
+      margin-bottom: 100px;
+      /* Tăng khoảng trống dưới trên thiết bị rất nhỏ */
+    }
+  }
+</style>
 
 <body>
   <div style="display: flex;
@@ -16,6 +94,26 @@
   </div>
   <div id="app"></div>
   <script type="module" src="./src/main.ts"></script>
+
+  <footer>
+    <div class="footer-bottom">
+      <p>© 2024 NHÓM 5</p>
+    </div>
+    <div class="footer-bottom">
+      <div class="moving-element">
+        <a href="#" class="back-to-top">TỚI ĐẦU TRANG</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    document.querySelector('.back-to-top').addEventListener('click', function (event) {
+      event.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 </body>
 
 </html>

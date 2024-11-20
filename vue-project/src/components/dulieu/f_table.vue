@@ -67,10 +67,10 @@ export default {
 }
 // Dữ liệu JSON bạn muốn lưu vào localStorage
 const data = [
-  { id_ke: 1, sl_loai: 5, is_full: 'Đầy',is_active:true },
-  { id_ke: 2, sl_loai: 4, is_full: 'Đầy', is_active: true },
-  { id_ke: 3, sl_loai: 0, is_full: 'Trống', is_active: true },
-  { id_ke: 4, sl_loai: 0, is_full: 'Trống', is_active: true },
+  { id_ke: 1, sl_loai: 5, is_full: 'Đầy',is_deleted: false },
+  { id_ke: 2, sl_loai: 4, is_full: 'Đầy', is_deleted: false },
+  { id_ke: 3, sl_loai: 0, is_full: 'Trống', is_deleted: false },
+  { id_ke: 4, sl_loai: 0, is_full: 'Trống', is_deleted: false },
 ]
 
 // Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage

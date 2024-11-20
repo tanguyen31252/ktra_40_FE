@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import KeSachPage from '../components/KeSachPage.vue';
+import LoaiSachPage from '../components/LoaiSachPage.vue';
 </script>
 
 <template>
-  <header>
-    <TheWelcome />
-  </header>
+  <v-row>
+    <v-col>
+      <ke-sach-page/>
+    </v-col>
+    <v-col>
+      <loai-sach-page/>
+    </v-col>
+  </v-row>
 </template>
 
 
