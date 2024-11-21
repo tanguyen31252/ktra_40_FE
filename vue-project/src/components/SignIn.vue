@@ -83,7 +83,7 @@ export default {
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('userRole', account.type);
         alert(`Chào mừng ${account.email.split('@')[0]}!`);
-        this.$router.push('KeSachPage'); // Chuyển hướng sau khi đăng nhập thành công
+        this.$router.push('view'); // Chuyển hướng sau khi đăng nhập thành công
       } else {
         alert('Email hoặc mật khẩu không đúng.');
       }
