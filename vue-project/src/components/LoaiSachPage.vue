@@ -32,8 +32,8 @@
                 <v-card-text>
                     <v-form ref="form">
                         <v-text-field v-model="currentItem.ten_the_loai" label="Tên thể loại" required></v-text-field>
-                        <v-text-field v-model.number="currentItem.so_luong_sach" label="Số lượng sách" required></v-text-field>
-                        <v-text-field v-model.number="currentItem.id_ke" label="Kệ" required></v-text-field>
+                        <v-text-field type="number" v-model.number="currentItem.so_luong_sach" label="Số lượng sách" required></v-text-field>
+                        <!-- <v-text-field type="number" v-model.number="currentItem.id_ke" label="Kệ" required></v-text-field> -->
                     </v-form>
                 </v-card-text>
 
@@ -76,7 +76,7 @@ const headers = [
 // Tính toán dynamic để lọc dữ liệu dựa trên search
 const filteredItems = computed(() => {
     return LoaiSachData.value.filter(item => !item.is_deleted &&
-        item.id_ke === mySelectedKe.value &&
+        item.id_ke === selectedKe.value &&
         String(item.ten_the_loai).toLowerCase().includes(search.value.toLowerCase())
     );
 });
@@ -87,13 +87,13 @@ const dynamicHeaders = computed(() => {
     }
     return headers;
 });
-const mySelectedKe = computed(() => selectedKe.value);
+// const mySelectedKe = computed(() => selectedKe.value);
 onMounted(() => {
     LoaiSachData.value = loadItemsFromLocalStorage();
 });
 
-watch(mySelectedKe, (newVal) => {
-    console.log('SelectedKe được thay đổi:', newVal);
+watch(selectedKe, (newVal) => {
+    // console.log('SelectedKe được thay đổi:', newVal);
 });
 
 function loadItemsFromLocalStorage(): Array<LoaiSachModel> {
@@ -112,6 +112,7 @@ function save() {
         const maxId = Math.max(...LoaiSachData.value.map(item => item.the_loai_id || 0));
         currentItem.value.the_loai_id = maxId + 1;
         currentItem.value.is_deleted = false;
+        currentItem.value.id_ke = selectedKe.value;
         LoaiSachData.value.push({ ...currentItem.value });
     } else {
         // Logic để cập nhật item hiện có
@@ -140,13 +141,13 @@ function onAddCart(item: LoaiSachModel) {
 function onDelete(item: LoaiSachModel) {
     if (confirm('Bạn có chắc chắn muốn xóa mục này không?')) {
         item.is_deleted = true;
-        console.log(item);
+        // console.log(item);
     }
     localStorage.setItem('LoaiData', JSON.stringify(LoaiSachData.value));
 }
 
 function onRowClick(event, item) {
-    console.log('Row clicked:', item.item.the_loai_id);
+    // console.log('Row clicked:', item.item.the_loai_id);
     localStorage.setItem('selectedLoai', JSON.stringify(item.item.the_loai_id));
     const newLoai = item.item.the_loai_id; // Lấy từ dữ liệu dòng bị click
     selectedLoai.value = newLoai;

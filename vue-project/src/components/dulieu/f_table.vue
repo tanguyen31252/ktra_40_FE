@@ -1,27 +1,15 @@
 <template>
   <v-card>
-    <v-data-table
-      :headers="headers"
-      :items="filteredItems"
-      dense
-      fixed-header
-      items-per-page="5"
-      class="elevation-1"
+    <v-data-table :headers="headers" :items="filteredItems" dense fixed-header items-per-page="5" class="elevation-1"
       :header-props="{
         style: 'background-color: #4169E1; color: #ffffff;',
-      }"
-    >
+      }">
       <template v-slot:top>
         <v-toolbar flat>
           <v-toolbar-title>Kệ sách</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Tìm kiếm"
-            single-line
-            hide-details
-          ></v-text-field>
+          <v-text-field v-model="search" append-icon="mdi-magnify" label="Tìm kiếm" single-line
+            hide-details></v-text-field>
         </v-toolbar>
       </template>
     </v-data-table>
@@ -57,7 +45,7 @@ export default {
       search,
       headers: [
         { title: 'Id_ke', align: 'center', value: 'id_ke', sortable: true },
-        { title: 'Sl_loai', align: 'center', value: 'sl_loai' , sortable: true },
+        { title: 'Sl_loai', align: 'center', value: 'sl_loai', sortable: true },
         { title: 'Is Full', align: 'center', value: 'is_full ', sortable: true },
         { title: 'Is Active', align: 'center', value: 'is_active', sortable: true },
       ],
@@ -66,25 +54,19 @@ export default {
   },
 }
 // Dữ liệu JSON bạn muốn lưu vào localStorage
-const data = [
-  { id_ke: 1, sl_loai: 5, is_full: 'Đầy',is_deleted: false },
+const keData = [
+  { id_ke: 1, sl_loai: 5, is_full: 'Đầy', is_deleted: false },
   { id_ke: 2, sl_loai: 4, is_full: 'Đầy', is_deleted: false },
   { id_ke: 3, sl_loai: 0, is_full: 'Trống', is_deleted: false },
   { id_ke: 4, sl_loai: 0, is_full: 'Trống', is_deleted: false },
 ]
 
-// Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage
-localStorage.setItem('keData', JSON.stringify(data))
-
-// Đọc dữ liệu từ localStorage
-const storedData = localStorage.getItem('keData')
-
-// Kiểm tra xem có dữ liệu trong localStorage không
-if (storedData) {
-  const parsedData = JSON.parse(storedData)
-  console.log(parsedData)
+if (localStorage.getItem('keData') === null) {
+  // Chưa có dữ liệu: thực hiện lưu dữ liệu vào localStorage
+  localStorage.setItem('keData', JSON.stringify(keData));
+  console.log('Dữ liệu Kệ Sách đã được thêm vào localStorage.');
 } else {
-  console.log('Không có dữ liệu trong localStorage')
+  console.log('Dữ liệu Kệ Sách đã tồn tại trong localStorage, không cần thêm.');
 }
 </script>
 

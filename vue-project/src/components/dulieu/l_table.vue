@@ -54,7 +54,7 @@ export default {
   },
 }
 // Dữ liệu JSON bạn muốn lưu vào localStorage
-const data = [
+const LoaiData = [
 { the_loai_id: 1, ten_the_loai: "Công nghệ thông tin", so_luong_sach: 15 ,id_ke: 1},
 { the_loai_id: 2, ten_the_loai: "Quản trị kinh doanh", so_luong_sach: 10 ,id_ke: 1},
 { the_loai_id: 3, ten_the_loai: "Thiết kế đồ họa", so_luong_sach: 9 ,id_ke: 1},
@@ -66,25 +66,12 @@ const data = [
 { the_loai_id: 9, ten_the_loai: "Thể thao và giải trí", so_luong_sach: 12 ,id_ke: 2},
 ]
 
-// Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage
-localStorage.setItem('LoaiData', JSON.stringify(data))
+if (localStorage.getItem('LoaiData') === null) {
+        // Chưa có dữ liệu: thực hiện lưu dữ liệu vào localStorage
+        localStorage.setItem('LoaiData', JSON.stringify(LoaiData));
+        console.log('Dữ liệu Loại Sách đã được thêm vào localStorage.');
+    } else {
+        console.log('Dữ liệu Loại Sách đã tồn tại trong localStorage, không cần thêm.');
+    }
 
-// Đọc dữ liệu từ localStorage
-const storedData = localStorage.getItem('LoaiData')
-
-// Kiểm tra xem có dữ liệu trong localStorage không
-if (storedData) {
-  const parsedData = JSON.parse(storedData)
-  console.log(parsedData)
-} else {
-  console.log('Không có dữ liệu trong localStorage')
-}
 </script>
-
-
-<style>
-.v-pagination__list {
-  width: inherit !important;
-  
-}
-</style>

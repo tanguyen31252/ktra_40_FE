@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showSachDialog" persistent max-width="auto">
+    <v-dialog class="dialog-container" v-model="showSachDialog" persistent max-width="auto">
         <v-card>
             <!-- Toolbar cho dialog -->
             <v-toolbar color="#FFFFFF">
@@ -16,9 +16,10 @@
             <!-- Bảng dữ liệu -->
             <v-data-table :headers="headers" :items="filteredItems" density="compact" :item-key="the_loai_id"
                 height="350px" fixed-header :header-props="({ style: 'background-color: #4169E1; color: #ffffff;' })"
-                @click:row="onRowClick" hover>
+                hover>
                 <template v-slot:item.action="{ item }">
-                    <v-btn icon="mdi-plus-circle" @click.stop="onAddCart(item)"></v-btn>
+                    <v-btn :icon="getButtonIcon(item)" :disabled="isItemAdded(item)"
+                        @click.stop="onAddCart(item)"></v-btn>
                     <v-btn v-if="isType1" icon="mdi-pencil" @click.stop="onUpdate(item)"></v-btn>
                     <v-btn v-if="isType1" icon="mdi-delete" @click.stop="onDelete(item)"></v-btn>
                 </template>
@@ -36,8 +37,8 @@
                             <v-text-field v-model="currentItem.ten_sach" label="Tên sách" required></v-text-field>
                             <v-text-field v-model="currentItem.tac_gia" label="Tác giả" required></v-text-field>
                             <v-text-field v-model="currentItem.nxb" label="NXB" required></v-text-field>
-                            <v-select v-model.number="currentItem.the_loai_id" label="Thể loại" required
-                                :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"></v-select>
+                            <!-- <v-select v-model.number="currentItem.the_loai_id" label="Thể loại" required
+                                :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"></v-select> -->
                             <v-select v-if="!add" v-model="currentItem.tinh_trang" label="Tình trạng" required
                                 :items="['Hết sách', 'Còn sách']"></v-select>
                         </v-form>
@@ -61,7 +62,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue';
-import { selectedLoai } from '../javascript/state.js';
+import { selectedLoai, MuonSach } from '../javascript/state.js';
 
 interface SachModel {
     id_sach?: number;
@@ -70,6 +71,7 @@ interface SachModel {
     nxb?: string;
     the_loai_id?: number;
     tinh_trang?: string;
+    isAdded?: boolean;
     is_deleted?: boolean;
 }
 
@@ -94,7 +96,7 @@ const headers = [
 // Tính toán dynamic để lọc dữ liệu dựa trên search
 const filteredItems = computed(() => {
     return SachData.value.filter(item => !item.is_deleted &&
-        item.the_loai_id == mySelectedLoai.value &&
+        item.the_loai_id == selectedLoai.value &&
         String(item.ten_sach).toLowerCase().includes(search.value.toLowerCase())
     );
 });
@@ -104,8 +106,7 @@ onMounted(() => {
     SachData.value = loadItemsFromLocalStorage();
 });
 
-watch(mySelectedLoai, (newVal) => {
-    console.log('SelectedLoai được thay đổi:', newVal);
+watch(selectedLoai, (newVal) => {
     if (newVal == null) { return; }
     showSachDialog.value = true;
 });
@@ -127,6 +128,7 @@ function save() {
         currentItem.value.id_sach = maxId + 1;
         currentItem.value.is_deleted = false;
         currentItem.value.tinh_trang = 'Còn sách';
+        currentItem.value.the_loai_id = selectedLoai.value;
         SachData.value.push({ ...currentItem.value });
     } else {
         // Logic để cập nhật item hiện có
@@ -147,23 +149,38 @@ function openAddDialog() {
     showDialog.value = true;
 }
 
+// function onAddCart(item: SachModel) {
+//     confirm('Mượn thành công cuốn: ' + '"' + item.ten_sach + '"');
+// }
+
 function onAddCart(item: SachModel) {
-    confirm('Mượn thành công cuốn: ' + '"' + item.ten_sach + '"');
+    if (!isItemAdded(item)) {
+        item.isAdded = true;
+        MuonSach.value.push(item);
+    }
 }
+
+function isItemAdded(item: SachModel) {
+    // return MuonSach.value.some(addedItem => addedItem.id_sach === item.id_sach);
+    return item.tinh_trang === 'Hết sách' || item.isAdded;
+
+}
+
+function getButtonIcon(item: SachModel) {
+    if (item.tinh_trang == 'Hết sách') {
+        return 'mdi-cancel';
+    }
+    return isItemAdded(item) ? 'mdi-check-circle' : 'mdi-plus-circle';
+}
+
 
 function onDelete(item: SachModel) {
     if (confirm('Bạn có chắc chắn muốn xóa mục này không?')) {
         item.is_deleted = true;
-        console.log(item);
+        // item.isAdded = false;
+        // console.log(item);
     }
     localStorage.setItem('SachData', JSON.stringify(SachData.value));
-}
-
-function onRowClick(event, item) {
-    // console.log('Row clicked:', item.item.the_loai_id);
-    // localStorage.setItem('selectedLoai', JSON.stringify(item.item.the_loai_id));
-    // const newLoai = item.item.the_loai_id; // Lấy từ dữ liệu dòng bị click
-    // selectedLoai.value = newLoai;
 }
 
 function DongSach() {

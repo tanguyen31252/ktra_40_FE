@@ -68,9 +68,10 @@ const userRole = localStorage.getItem('userRole');
 const isType1 = userRole === '1';
 
 const headers = [
-    { title: 'Kệ', align: 'center', key: 'id_ke' },
-    { title: 'Số lượng loại', align: 'center', key: 'sl_loai' },
-    { title: 'Tình trạng', align: 'center', key: 'is_full' },
+    { title: 'Kệ', align: 'start', key: 'id_ke' },
+    { title: 'Khoa', align: 'start', key: 'khoa' },
+    { title: 'Số lượng loại', align: 'start', key: 'sl_loai' },
+    { title: 'Tình trạng', align: 'start', key: 'is_full' },
 ];
 
 // Tính toán dynamic để lọc dữ liệu dựa trên search
@@ -135,7 +136,7 @@ function onAddCart(item: KeSachModel) {
 function onDelete(item: KeSachModel) {
     if (confirm('Bạn có chắc chắn muốn xóa mục này không?')) {
         item.is_deleted = true;
-        console.log(item);
+        // console.log(item);
     }
     localStorage.setItem('keData', JSON.stringify(KeSachData.value));
 }

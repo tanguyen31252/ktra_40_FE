@@ -68,7 +68,7 @@ export default {
   },
 }
 // Dữ liệu JSON bạn muốn lưu vào localStorage
-const data = [
+const SachData = [
 { id_sach: 1, ten_sach: "Code dạo kí sự – Lập trình viên đâu phải chỉ biết code", tac_gia: "Phạm Huy Hoàng", nxb: "NXB Dân trí", tinh_trang: "Còn sách"
  ,the_loai_id: 1},
 { id_sach: 2, ten_sach: "Lập trình và cuộc sống", tac_gia: "Jeff Atwood", nxb: "NXB Dân trí", tinh_trang: "Hết sách"
@@ -354,24 +354,12 @@ const data = [
  
 ]
 
-// Chuyển đối tượng JSON thành chuỗi và lưu vào localStorage
-localStorage.setItem('SachData', JSON.stringify(data))
+if (localStorage.getItem('SachData') === null) {
+        // Chưa có dữ liệu: thực hiện lưu dữ liệu vào localStorage
+        localStorage.setItem('SachData', JSON.stringify(SachData));
+        console.log('Dữ liệu Sách đã được thêm vào localStorage.');
+    } else {
+        console.log('Dữ liệu Sách đã tồn tại trong localStorage, không cần thêm.');
+    }
 
-// Đọc dữ liệu từ localStorage
-const storedData = localStorage.getItem('SachData')
-
-// Kiểm tra xem có dữ liệu trong localStorage không
-if (storedData) {
-  const parsedData = JSON.parse(storedData)
-  console.log(parsedData)
-} else {
-  console.log('Không có dữ liệu trong localStorage')
-}
 </script>
-
-
-<style>
-.v-pagination__list {
-  width: inherit !important;
-}
-</style>
