@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="showMuonSachDialog" persistent max-width="auto">
+    <v-dialog v-model="showMuonSachDialog" persistent max-width="90vw" :style="{ maxHeight: '80vh' }">
         <v-card>
             <!-- Toolbar cho dialog -->
             <v-toolbar color="#FFFFFF">
@@ -15,7 +15,7 @@
 
             <!-- Bảng dữ liệu -->
             <v-data-table :headers="headers" :items="filteredItems" density="compact" :item-key="id_sach" height="350px"
-                fixed-header :header-props="({ style: 'background-color: rgba(24,103,192,1); color: #ffffff;' })" hover>
+                fixed-header :header-props="({ style: 'background-color: #4169E1; color: #ffffff;' })" hover>
                 <template v-slot:item.action="{ item }">
                     <v-btn icon='mdi-minus-circle' @click.stop="onDelete(item)"></v-btn>
                 </template>
@@ -65,7 +65,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue';
-import { MuonSach } from '../javascript/state.js';
+import { MuonSach, SachData } from '../javascript/state.js';
 
 interface SachModel {
     id_sach?: number;
@@ -81,7 +81,7 @@ interface SachModel {
 const title = 'Danh sách mượn'; // Tiêu đề cho toolbar
 const showDialog = ref(false);
 const showMuonSachDialog = ref(false);
-// const MuonSach = ref<Array<SachModel>>([]);
+// const SachData = ref<Array<SachModel>>([]);
 const currentItem = ref<SachModel>({});
 const add = ref(true);
 const search = ref('');
@@ -105,11 +105,13 @@ const filteredItems = computed(() => {
 
 onMounted(() => {
     MuonSach.value = loadItemsFromLocalStorage();
+    // SachData.value = JSON.parse(localStorage.getItem('SachData'));
 });
 
 watch(MuonSach, (newVal) => {
     // console.log(newVal);
 });
+watch(SachData, (newVal) => { })
 
 function loadItemsFromLocalStorage(): Array<SachModel> {
     const savedData = localStorage.getItem('MuonSach');
@@ -122,9 +124,20 @@ function openMuonSachDialog() {
 }
 
 function onDelete(item: SachModel) {
-    MuonSach.value = MuonSach.value.filter(existed => existed.id_sach !== item.id_sach);
     item.isAdded = false;
-    console.log(item);
+    const index = SachData.value.findIndex(d => d.id_sach === item.id_sach);
+    if (index !== -1) {
+        SachData.value[index] = { ...item };
+    }
+    // MuonSach.value.removeItem(item);
+    console.log('trả sách: ', item);
+    localStorage.setItem('SachData', JSON.stringify(SachData.value));
+    // console.log(item);
+    // item.isAdded = false;
+    // // localStorage.setItem('SachData', JSON.stringify(MuonSach.value));
+    // console.log(item);
+    MuonSach.value = MuonSach.value.filter(existed => existed.id_sach !== item.id_sach);
+
 }
 
 function DongMuonSach() {

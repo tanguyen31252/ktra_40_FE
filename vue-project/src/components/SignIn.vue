@@ -130,8 +130,10 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  position: relative;
-  margin: 0 auto;
+  position: absolute; // Đảm bảo nó chiếm toàn bộ màn hình
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); // Di chuyển về chính giữa
   width: 100%;
   max-width: 768px;
   min-height: 480px;
@@ -140,6 +142,10 @@ export default {
   box-shadow: 0 15px 30px rgba(0, 0, 0, .2),
     0 10px 10px rgba(0, 0, 0, .2);
   background: linear-gradient(to bottom, #efefef, #ccc);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .overlay-container {

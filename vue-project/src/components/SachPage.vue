@@ -1,5 +1,5 @@
 <template>
-    <v-dialog class="dialog-container" v-model="showSachDialog" persistent max-width="auto">
+    <v-dialog class="dialog-container" v-model="showSachDialog" persistent max-width="90vw" :style="{ maxHeight: '80vh' }">
         <v-card>
             <!-- Toolbar cho dialog -->
             <v-toolbar color="#FFFFFF">
@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted, watch } from 'vue';
-import { selectedLoai, MuonSach } from '../javascript/state.js';
+import { selectedLoai, MuonSach, SachData } from '../javascript/state.js';
 
 interface SachModel {
     id_sach?: number;
@@ -78,7 +78,7 @@ interface SachModel {
 const title = 'Sách'; // Tiêu đề cho toolbar
 const showDialog = ref(false);
 const showSachDialog = ref(false);
-const SachData = ref<Array<SachModel>>([]);
+// const SachData = ref<Array<SachModel>>([]);
 const currentItem = ref<SachModel>({});
 const add = ref(true);
 const search = ref('');
@@ -111,6 +111,8 @@ watch(selectedLoai, (newVal) => {
     showSachDialog.value = true;
 });
 
+watch(SachData, (newVal) => { })
+
 function loadItemsFromLocalStorage(): Array<SachModel> {
     const savedData = localStorage.getItem('SachData');
     return savedData ? JSON.parse(savedData) : [];
@@ -129,6 +131,7 @@ function save() {
         currentItem.value.is_deleted = false;
         currentItem.value.tinh_trang = 'Còn sách';
         currentItem.value.the_loai_id = selectedLoai.value;
+        currentItem.value.isAdded = false;
         SachData.value.push({ ...currentItem.value });
     } else {
         // Logic để cập nhật item hiện có
@@ -149,14 +152,12 @@ function openAddDialog() {
     showDialog.value = true;
 }
 
-// function onAddCart(item: SachModel) {
-//     confirm('Mượn thành công cuốn: ' + '"' + item.ten_sach + '"');
-// }
-
 function onAddCart(item: SachModel) {
     if (!isItemAdded(item)) {
         item.isAdded = true;
         MuonSach.value.push(item);
+        console.log('mượn sách: ', item);
+        localStorage.setItem('SachData', JSON.stringify(SachData.value));
     }
 }
 
@@ -170,6 +171,7 @@ function getButtonIcon(item: SachModel) {
     if (item.tinh_trang == 'Hết sách') {
         return 'mdi-cancel';
     }
+
     return isItemAdded(item) ? 'mdi-check-circle' : 'mdi-plus-circle';
 }
 

@@ -10,6 +10,7 @@ export const selectedLoai = ref(localStorage.getItem('selectedLoai')
 
 export const MuonSach = ref(JSON.parse(localStorage.getItem('MuonSach')) || []);
 
+export const SachData = ref([]);
 
 // Theo dõi và đồng bộ với localStorage khi có thay đổi
 watch(selectedKe, (newValue) => {

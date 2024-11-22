@@ -78,7 +78,7 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  position: fixed;
+  /* position: fixed; */
   bottom: 0;
   left: 0;
   right: 0;
@@ -118,6 +118,12 @@ footer p {
 
 /* Media Queries */
 @media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    /* Xếp nội dung theo chiều dọc */
+    padding: 10px;
+    /* Thu nhỏ padding */
+  }
 
   #IMGLogoHead {
     max-width: 100%;
@@ -130,7 +136,7 @@ footer p {
   justify-content: flex-end;
   align-items: center;
   padding: 10px 20px;
-  background-color: #007BFF;
+  background-color: #4169E1;
   color: white;
 }
 
@@ -141,10 +147,10 @@ footer p {
 
 .logout-button {
   cursor: pointer;
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
   font-weight: bold;
-  background-color: #006FCE;
+  background-color: #ffffff;
   padding: 8px 16px;
   border-radius: 4px;
   border: none;
@@ -152,7 +158,7 @@ footer p {
 }
 
 .logout-button:hover {
-  background-color: #005BB5;
+  background-color: #919396;
 }
 
 .table-row {
