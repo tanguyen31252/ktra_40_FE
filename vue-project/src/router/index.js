@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import view from '../views/HomeView.vue';
 import SignIn from '../components/SignIn.vue';
 
+
 //du lieu
 import data from '../components/dulieu/data.vue'
 
