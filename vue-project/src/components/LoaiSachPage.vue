@@ -16,7 +16,7 @@
             height="350px" fixed-header :header-props="({ style: 'background-color: #4169E1; color: #ffffff;' })"
             @click:row="onRowClick" hover>
             <template v-slot:item.action="{ item }" v-if="isType1">
-                <v-btn icon="mdi-plus-circle" @click.stop="onAddCart(item)"></v-btn>
+                <!-- <v-btn icon="mdi-plus-circle" @click.stop="onAddCart(item)"></v-btn> -->
                 <v-btn icon="mdi-pencil" @click.stop="onUpdate(item)"></v-btn>
                 <v-btn icon="mdi-delete" @click.stop="onDelete(item)"></v-btn>
             </template>
